@@ -1,4 +1,4 @@
 name: JsonApiExtender
 main: de.craften.plugins.jsonapiextensions.CraftenJsonApiExtender
-version: 1.1
+version: 1.11
 softdepend: [JSONAPI]
