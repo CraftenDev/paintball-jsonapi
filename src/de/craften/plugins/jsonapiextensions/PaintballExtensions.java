@@ -41,7 +41,7 @@ public class PaintballExtensions implements JSONAPICallHandler {
             try {
                 ArrayList<HashMap<String, Object>> map = new ArrayList<HashMap<String, Object>>();
                 int i = 1;
-                for (PaintballPlayer p : getPointsRanking(Integer.valueOf((String) objects[0]))) {
+                for (PaintballPlayer p : getPointsRanking(Integer.valueOf((String) objects[0]), Integer.valueOf((String) objects[1]))) {
                     HashMap<String, Object> player = p.toHashMap();
                     player.put("rank", i);
                     map.add(player);
@@ -160,12 +160,13 @@ public class PaintballExtensions implements JSONAPICallHandler {
      * @param limit Number of ranks to get
      * @return List with max. ´limit´ players, sorted by rank (0 = 1th, 1 = 2nd, ...)
      */
-    private List<PaintballPlayer> getPointsRanking(int limit) throws SQLException {
+    private List<PaintballPlayer> getPointsRanking(int offset, int limit) throws SQLException {
         Connection c = getDatabase();
         PreparedStatement statement;
         if (limit > 0) {
-            statement = c.prepareStatement("SELECT * FROM players ORDER BY points DESC LIMIT ?");
-            statement.setInt(1, limit);
+            statement = c.prepareStatement("SELECT * FROM players ORDER BY points DESC LIMIT ?, ?");
+            statement.setInt(1, offset);
+            statement.setInt(2, limit);
         } else {
             statement = c.prepareStatement("SELECT * FROM players ORDER BY points DESC");
         }
