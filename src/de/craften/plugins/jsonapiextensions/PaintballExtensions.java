@@ -27,6 +27,7 @@ public class PaintballExtensions implements JSONAPICallHandler {
                 return null;
             } catch (Exception e) {
                 getLogger().warning("getPaintballPlayerStats failed");
+                e.printStackTrace();
             }
         } else if (apiMethodName.matches("getAllPaintballPlayerStats")) {
             try {
@@ -36,12 +37,13 @@ public class PaintballExtensions implements JSONAPICallHandler {
                 return map;
             } catch (Exception e) {
                 getLogger().warning("getAllPaintballPlayerStats failed");
+                e.printStackTrace();
             }
         } else if (apiMethodName.matches("getPaintballRanking")) {
             try {
                 ArrayList<HashMap<String, Object>> map = new ArrayList<HashMap<String, Object>>();
                 int i = 1;
-                for (PaintballPlayer p : getPointsRanking(Integer.valueOf((String) objects[0]), Integer.valueOf((String) objects[1]))) {
+                for (PaintballPlayer p : getPointsRanking(((Number) objects[0]).intValue(), ((Number) objects[1]).intValue())) {
                     HashMap<String, Object> player = p.toHashMap();
                     player.put("rank", i);
                     map.add(player);
@@ -50,6 +52,7 @@ public class PaintballExtensions implements JSONAPICallHandler {
                 return map;
             } catch (Exception e) {
                 getLogger().warning("getAllPaintballPlayerStats failed");
+                e.printStackTrace();
             }
         }
 
@@ -90,7 +93,7 @@ public class PaintballExtensions implements JSONAPICallHandler {
             result = new PaintballPlayer(
                     rs.getString("name"),
                     rs.getInt("hitquote"),
-                    rs.getInt("roungs"),
+                    rs.getInt("rounds"),
                     rs.getInt("teamattacks"),
                     rs.getInt("hits"),
                     rs.getInt("defeats"),
@@ -130,7 +133,7 @@ public class PaintballExtensions implements JSONAPICallHandler {
             result.add(new PaintballPlayer(
                     rs.getString("name"),
                     rs.getInt("hitquote"),
-                    rs.getInt("roungs"),
+                    rs.getInt("rounds"),
                     rs.getInt("teamattacks"),
                     rs.getInt("hits"),
                     rs.getInt("defeats"),
@@ -177,7 +180,7 @@ public class PaintballExtensions implements JSONAPICallHandler {
             result.add(new PaintballPlayer(
                     rs.getString("name"),
                     rs.getInt("hitquote"),
-                    rs.getInt("roungs"),
+                    rs.getInt("rounds"),
                     rs.getInt("teamattacks"),
                     rs.getInt("hits"),
                     rs.getInt("defeats"),
