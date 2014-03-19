@@ -21,7 +21,7 @@ public class PaintballPlayer {
     private int grenades;
     private int wins;
 
-    public PaintballPlayer(String name, int hitquote, int rounds, int teamattacks, int hits, int defeats, int airstrikes, int deaths, int kd, int money, int money_spent, int shots, int kills, int draws, int points, int grenades, int wins) {
+    public PaintballPlayer(String name, int hitquote, int rounds, int teamattacks, int hits, int defeats, int airstrikes, int deaths, int kd, int money, int moneySpent, int shots, int kills, int draws, int points, int grenades, int wins) {
         this.name = name;
         this.hitquote = hitquote;
         this.rounds = rounds;
@@ -32,7 +32,7 @@ public class PaintballPlayer {
         this.deaths = deaths;
         this.kd = kd;
         this.money = money;
-        this.moneySpent = money_spent;
+        this.moneySpent = moneySpent;
         this.shots = shots;
         this.kills = kills;
         this.draws = draws;
