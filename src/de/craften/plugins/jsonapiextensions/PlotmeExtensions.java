@@ -2,9 +2,9 @@ package de.craften.plugins.jsonapiextensions;
 
 import com.alecgorge.minecraft.jsonapi.api.APIMethodName;
 import com.alecgorge.minecraft.jsonapi.api.JSONAPICallHandler;
-import net.minecraft.server.v1_6_R3.Position;
 import org.bukkit.Material;
 import org.bukkit.Server;
+import org.bukkit.util.Vector;
 
 import java.util.Arrays;
 import java.util.concurrent.Callable;
@@ -73,8 +73,8 @@ public class PlotmeExtensions implements JSONAPICallHandler {
     }
 
     private Material[][][] getPlotData(long plotX, long plotZ) {
-        final Position start = getPlotStart(plotX, plotZ);
-        final Position end = getPlotEnd(plotX, plotZ);
+        final Vector start = getPlotStart(plotX, plotZ);
+        final Vector end = getPlotEnd(plotX, plotZ);
 
         Material[][][] result = new Material[(int) (end.getX() - start.getX()) + 1][(int) (end
                 .getY() - start.getY()) + 1][(int) (end.getZ() - start.getZ()) + 1];
@@ -106,11 +106,11 @@ public class PlotmeExtensions implements JSONAPICallHandler {
         return true;
     }
 
-    private Position getPlotStart(long x, long z) {
-        return new Position(39 * x - 35, 0, 39 * z - 35);
+    private Vector getPlotStart(long x, long z) {
+        return new Vector(39 * x - 35, 0.0, 39 * z - 35);
     }
 
-    private Position getPlotEnd(long x, long z) {
-        return new Position(39 * x - 4, 255, 39 * z - 4);
+    private Vector getPlotEnd(long x, long z) {
+        return new Vector(39 * x - 4, 255, 39 * z - 4);
     }
 }
