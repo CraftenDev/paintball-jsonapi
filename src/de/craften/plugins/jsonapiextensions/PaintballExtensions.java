@@ -82,13 +82,13 @@ public class PaintballExtensions implements JSONAPICallHandler {
      */
     private PaintballPlayer getPlayer(String login) throws SQLException {
         Connection c = getDatabase();
-        PreparedStatement statement = c.prepareStatement("SELECT * FROM players WHERE name = ?");
+        PreparedStatement statement = c.prepareStatement("SELECT *, (SELECT COUNT(*) FROM players p WHERE p.points > q.points)rank FROM players q WHERE name = ?");
         statement.setString(1, login);
         ResultSet rs = statement.executeQuery();
 
         PaintballPlayer result = null;
         if (rs.next()) {
-            result = new PaintballPlayer(
+            result = new RankedPaintballPlayer(
                     rs.getString("name"),
                     rs.getInt("hitquote"),
                     rs.getInt("rounds"),
@@ -105,7 +105,8 @@ public class PaintballExtensions implements JSONAPICallHandler {
                     rs.getInt("draws"),
                     rs.getInt("points"),
                     rs.getInt("grenades"),
-                    rs.getInt("wins")
+                    rs.getInt("wins"),
+                    rs.getInt("rank")
             );
         }
 
