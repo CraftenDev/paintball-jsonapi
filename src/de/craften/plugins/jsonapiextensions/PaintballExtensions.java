@@ -44,9 +44,7 @@ public class PaintballExtensions implements JSONAPICallHandler {
                 ArrayList<HashMap<String, Object>> map = new ArrayList<HashMap<String, Object>>();
                 int i = 1;
                 for (PaintballPlayer p : getPointsRanking(((Number) objects[0]).intValue(), ((Number) objects[1]).intValue())) {
-                    HashMap<String, Object> player = p.toHashMap();
-                    player.put("rank", i);
-                    map.add(player);
+                    map.add(p.toHashMap());
                     i++;
                 }
                 return map;
@@ -166,36 +164,43 @@ public class PaintballExtensions implements JSONAPICallHandler {
     private List<PaintballPlayer> getPointsRanking(int offset, int limit) throws SQLException {
         Connection c = getDatabase();
         PreparedStatement statement;
-        if (limit > 0) {
-            statement = c.prepareStatement("SELECT * FROM players ORDER BY points DESC LIMIT ?, ?");
-            statement.setInt(1, offset);
-            statement.setInt(2, limit);
-        } else {
-            statement = c.prepareStatement("SELECT * FROM players ORDER BY points DESC");
-        }
+        statement = c.prepareStatement("SELECT * FROM players ORDER BY points DESC");
         ResultSet rs = statement.executeQuery();
+        int rank = 0;
+        int num = 0;
+        int currentPoints = -1;
 
         ArrayList<PaintballPlayer> result = new ArrayList<PaintballPlayer>(limit);
         while (rs.next()) {
-            result.add(new PaintballPlayer(
-                    rs.getString("name"),
-                    rs.getInt("hitquote"),
-                    rs.getInt("rounds"),
-                    rs.getInt("teamattacks"),
-                    rs.getInt("hits"),
-                    rs.getInt("defeats"),
-                    rs.getInt("airstrikes"),
-                    rs.getInt("deaths"),
-                    rs.getInt("kd"),
-                    rs.getInt("money"),
-                    rs.getInt("money_spent"),
-                    rs.getInt("shots"),
-                    rs.getInt("kills"),
-                    rs.getInt("draws"),
-                    rs.getInt("points"),
-                    rs.getInt("grenades"),
-                    rs.getInt("wins")
-            ));
+            num++;
+            if (rs.getInt("points") < currentPoints || rank == 0) {
+                rank = num;
+                currentPoints = rs.getInt("points");
+            }
+            if (num > offset) {
+                result.add(new RankedPaintballPlayer(
+                        rs.getString("name"),
+                        rs.getInt("hitquote"),
+                        rs.getInt("rounds"),
+                        rs.getInt("teamattacks"),
+                        rs.getInt("hits"),
+                        rs.getInt("defeats"),
+                        rs.getInt("airstrikes"),
+                        rs.getInt("deaths"),
+                        rs.getInt("kd"),
+                        rs.getInt("money"),
+                        rs.getInt("money_spent"),
+                        rs.getInt("shots"),
+                        rs.getInt("kills"),
+                        rs.getInt("draws"),
+                        rs.getInt("points"),
+                        rs.getInt("grenades"),
+                        rs.getInt("wins"),
+                        rank
+                ));
+            }
+            if (result.size() == limit)
+                break;
         }
 
         rs.close();
