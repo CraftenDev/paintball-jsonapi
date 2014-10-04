@@ -1,0 +1,5 @@
+name: paintball-jsonapi
+version: VERSION
+author: leMaik
+main: de.craften.plugins.paintballjsonapi.PaintballJsonapiPlugin
+depend: [JSONAPI]
