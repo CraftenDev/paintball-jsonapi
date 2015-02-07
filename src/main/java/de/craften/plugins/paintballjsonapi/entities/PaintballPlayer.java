@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public class PaintballPlayer implements Jsonizable {
     private String name;
+    private String uuid;
     private int hitquote;
     private int rounds;
     private int teamattacks;
@@ -23,8 +24,9 @@ public class PaintballPlayer implements Jsonizable {
     private int grenades;
     private int wins;
 
-    public PaintballPlayer(String name, int hitquote, int rounds, int teamattacks, int hits, int defeats, int airstrikes, int deaths, int kd, int money, int moneySpent, int shots, int kills, int draws, int points, int grenades, int wins) {
+    public PaintballPlayer(String name, String uuid, int hitquote, int rounds, int teamattacks, int hits, int defeats, int airstrikes, int deaths, int kd, int money, int moneySpent, int shots, int kills, int draws, int points, int grenades, int wins) {
         this.name = name;
+        this.uuid = uuid;
         this.hitquote = hitquote;
         this.rounds = rounds;
         this.teamattacks = teamattacks;
@@ -45,6 +47,10 @@ public class PaintballPlayer implements Jsonizable {
 
     public String getName() {
         return name;
+    }
+
+    public String getUuid() {
+        return uuid;
     }
 
     public int getHitquote() {
@@ -113,8 +119,9 @@ public class PaintballPlayer implements Jsonizable {
 
     @Override
     public Object jsonize() {
-        HashMap<String, Object> result = new HashMap<String, Object>();
+        HashMap<String, Object> result = new HashMap<>();
         result.put("name", getName());
+        result.put("uuid", getUuid());
         result.put("hitquote", getHitquote());
         result.put("rounds", getRounds());
         result.put("teamattacks", getTeamattacks());

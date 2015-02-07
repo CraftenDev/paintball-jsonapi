@@ -20,7 +20,7 @@ public class PaintballJsonapiPlugin extends JavaPlugin implements JSONAPICallHan
     @Override
     public void onEnable() {
         try {
-            database = new PaintballDatabase(new File(new File(getDataFolder().getParentFile(), "Paintball"), "pbdata_110.db"));
+            database = new PaintballDatabase(new File(new File(getDataFolder().getParentFile(), "Paintball"), "pbdata_130.db"));
         } catch (ClassNotFoundException | SQLException e) {
             getLogger().severe("Could not connect to database.");
         }

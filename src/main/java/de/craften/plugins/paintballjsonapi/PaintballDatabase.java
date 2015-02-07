@@ -42,6 +42,7 @@ public class PaintballDatabase {
             if (rs.next()) {
                 result = new RankedPaintballPlayer(
                         rs.getString("name"),
+                        rs.getString("uuid"),
                         rs.getInt("hitquote"),
                         rs.getInt("rounds"),
                         rs.getInt("teamattacks"),
@@ -80,6 +81,7 @@ public class PaintballDatabase {
             while (rs.next()) {
                 result.add(new PaintballPlayer(
                         rs.getString("name"),
+                        rs.getString("uuid"),
                         rs.getInt("hitquote"),
                         rs.getInt("rounds"),
                         rs.getInt("teamattacks"),
