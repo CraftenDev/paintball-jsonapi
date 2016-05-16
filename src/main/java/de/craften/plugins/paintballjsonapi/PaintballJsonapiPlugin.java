@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.Level;
 
 public class PaintballJsonapiPlugin extends JavaPlugin implements JSONAPICallHandler {
     private PaintballDatabase database = null;
@@ -43,7 +44,7 @@ public class PaintballJsonapiPlugin extends JavaPlugin implements JSONAPICallHan
                         cachedPlayers = newPlayers;
                         getLogger().info("Cached players updated. " + cachedPlayers.size() + " players");
                     } catch (SQLException e) {
-                        getLogger().warning("Could not update players.");
+                        getLogger().log(Level.WARNING, "Could not update players.", e);
                     }
                 }
             }, 0, 20 * 60 * 60); //1h
