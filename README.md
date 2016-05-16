@@ -1,6 +1,6 @@
 # paintball-jsonapi #
 
-This badly-named plugin adds some methods for [JSONAPI](http://mcjsonapi.com/) to access [Paintball War Edition](http://dev.bukkit.org/bukkit-plugins/paintball_pure_war/) players. It also supports a (cached) ranking by points.
+This plugin adds some methods for [JSONAPI](http://mcjsonapi.com/) to access [Paintball War Edition](http://dev.bukkit.org/bukkit-plugins/paintball_pure_war/) players. It also supports a (cached) ranking by points.
 
 ## Requirements and Installation ##
 
